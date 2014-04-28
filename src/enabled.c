@@ -7,7 +7,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include "policy.h"
-#include "cutils/properties.h"
+#include <sys/system_properties.h>
 
 int is_selinux_enabled(void)
 {
@@ -19,7 +19,7 @@ int is_selinux_enabled(void)
 	char nfsModeValue[PROP_VALUE_MAX];
 	int ret;
 
-	ret = property_get("ro.nfs.mode", nfsModeValue, NULL);
+	ret = __system_property_get("ro.nfs.mode", nfsModeValue);
 	if((ret ==  3) && (strncmp(nfsModeValue, "yes", 3) == 0)) {
 		return 0;
 	}
